@@ -2,11 +2,12 @@ const ApiService = require('../services/apiService');
 const connection = require('../config/db/dbConfig');
 const formidable = require('formidable');
 const sendResponse = require('../utils/serverResponse');
-const mysqlApi = new ApiService(connection);
 const queryBuilder = require('../utils/query-builder/queryBuilder');
+const urls = require('../utils/urls');
+const mysqlApi = new ApiService(connection);
 
 module.exports = function (req, res) {
-  if (req.path === '/insert' && req.method === 'POST') {
+  if (req.path === urls.INSERT && req.method === 'POST') {
     let form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
       if (err) {

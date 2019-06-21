@@ -2,11 +2,12 @@ const ApiService = require('../services/apiService');
 const connection = require('../config/db/dbConfig');
 const formidable = require('formidable');
 const sendResponse = require('../utils/serverResponse');
-const mysqlApi = new ApiService(connection);
 const queryBuilder = require('../utils/query-builder/queryBuilder');
+const urls = require('../utils/urls');
 
+const mysqlApi = new ApiService(connection);
 module.exports = function (req, res) {
-  if (req.path.startsWith('/update')) {
+  if (req.path.startsWith(urls.UPDATE)) {
     let form = new formidable.IncomingForm();
     let userId = req.url.split('/').pop();
 
