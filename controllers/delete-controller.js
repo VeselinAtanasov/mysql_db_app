@@ -2,7 +2,7 @@ const ApiService = require('../services/apiService');
 const connection = require('../config/db/dbConfig');
 const sendResponse = require('../utils/serverResponse');
 const queryBuilder = require('../utils/query-builder/queryBuilder');
-const urls = require('../utils/urls');
+const urls = require('../utils/constants/urls');
 
 const mysqlApi = new ApiService(connection);
 module.exports = function (req, res) {
