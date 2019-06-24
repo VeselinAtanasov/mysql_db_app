@@ -11,7 +11,7 @@ module.exports = function (req, res) {
     let namesQuery = queryBuilder.deletePerson(userId);
     let jobsQuery = queryBuilder.deleteJob(userId);
 
-    mysqlApi
+    return mysqlApi
       .execute(namesQuery, jobsQuery)
       .then(data => {
         sendResponse(res, data);

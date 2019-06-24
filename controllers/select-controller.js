@@ -9,7 +9,7 @@ module.exports = function (req, res) {
   if ((req.path === urls.SELECT || req.path === urls.SELECT_ALL) && req.method === 'GET') {
     let query = queryBuilder.selectAll();
 
-    mysqlApi
+    return mysqlApi
       .execute(query)
       .then(data => {
         sendResponse(res, data);
@@ -19,7 +19,7 @@ module.exports = function (req, res) {
     let userId = req.url.split('/').pop();
     let query = queryBuilder.getUserById(userId);
 
-    mysqlApi
+    return mysqlApi
       .execute(query)
       .then(data => {
         sendResponse(res, data);

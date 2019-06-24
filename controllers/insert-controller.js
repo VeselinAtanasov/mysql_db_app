@@ -24,7 +24,7 @@ module.exports = function (req, res) {
       let userDataQuery = queryBuilder.insertPerson(data);
       let jobsDataQuery = queryBuilder.insertJob(data);
 
-      mysqlApi
+      return mysqlApi
         .execute(userDataQuery, jobsDataQuery, true)
         .then(data => {
           sendResponse(res, data);

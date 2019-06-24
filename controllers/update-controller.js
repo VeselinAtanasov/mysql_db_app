@@ -19,7 +19,7 @@ module.exports = function (req, res) {
       let userDataQuery = queryBuilder.updateUserData(userId, fields);
       let jobsDataQuery = queryBuilder.updateJobsData(userId, fields);
 
-      Promise.all([mysqlApi.execute(userDataQuery), mysqlApi.execute(jobsDataQuery)])
+      return Promise.all([mysqlApi.execute(userDataQuery), mysqlApi.execute(jobsDataQuery)])
         .then(data => {
           sendResponse(res, data);
         })
