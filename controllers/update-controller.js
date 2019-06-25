@@ -5,9 +5,9 @@ const sendResponse = require('../utils/serverResponse');
 const queryBuilder = require('../utils/query-builder/queryBuilder');
 const urls = require('../utils/constants/urls');
 
-const mysqlApi = new ApiService(connection);
 module.exports = function (req, res) {
   if (req.path.startsWith(urls.UPDATE)) {
+    const mysqlApi = new ApiService(connection);
     let form = new formidable.IncomingForm();
     let userId = req.url.split('/').pop();
 

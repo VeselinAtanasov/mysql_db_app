@@ -4,10 +4,10 @@ const formidable = require('formidable');
 const sendResponse = require('../utils/serverResponse');
 const queryBuilder = require('../utils/query-builder/queryBuilder');
 const urls = require('../utils/constants/urls');
-const mysqlApi = new ApiService(connection);
 
 module.exports = function (req, res) {
   if (req.path === urls.INSERT && req.method === 'POST') {
+    const mysqlApi = new ApiService(connection);
     let form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
       if (err) {
