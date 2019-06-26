@@ -14,7 +14,7 @@ module.exports = function (req, res) {
       .then(data => {
         sendResponse(res, data);
       })
-      .catch(e => console.log(e));
+      .catch(e => sendResponse(res, e.message));
   } else if (req.path.startsWith(urls.SELECT_ONE) && req.method === 'GET') {
     let userId = req.url.split('/').pop();
     let query = queryBuilder.getUserById(userId);
@@ -22,9 +22,9 @@ module.exports = function (req, res) {
     return mysqlApi
       .execute(query)
       .then(data => {
-        sendResponse(res, data);
+        return sendResponse(res, data);
       })
-      .catch(e => console.log(e));
+      .catch(e => sendResponse(res, e.message));
   } else {
     return true;
   }

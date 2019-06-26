@@ -14,9 +14,9 @@ module.exports = function (req, res) {
     return mysqlApi
       .execute(namesQuery, jobsQuery)
       .then(data => {
-        sendResponse(res, data);
+        return sendResponse(res, data);
       })
-      .catch(e => console.log(e));
+      .catch(e => sendResponse(res, e.message));
   } else {
     return true;
   }
