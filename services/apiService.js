@@ -9,6 +9,9 @@ class MySqlApi {
     if (arguments.length === 1) {
       return this.executeSingleQuery(firstQuery);
     }
+    if (arguments.length === 2) {
+      return this.executeStoreProcedureWithParams(firstQuery, secondQuery);
+    }
     return this.executeMultipleQueries(firstQuery, secondQuery, modifySecondQuery);
   }
 
@@ -17,6 +20,20 @@ class MySqlApi {
       return this.connection.query(
         query,
         function (err, results) {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(results);
+        }
+      );
+    });
+  }
+
+  executeStoreProcedureWithParams (query, options) {
+    return new Promise((resolve, reject) => {
+      return this.connection.query(
+        query, options,
+        function (err, results, fields) {
           if (err) {
             return reject(err);
           }

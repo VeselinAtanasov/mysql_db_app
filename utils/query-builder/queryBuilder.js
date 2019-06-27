@@ -25,5 +25,16 @@ module.exports = {
   },
   insertEmployeeId: function (query, id) {
     return query.replace('undefined', id);
+  },
+  callStoreProcedure: function () {
+    return 'CALL getNames()';
+  },
+  // Store procedure with Placeholders - Placeholders could be used also in normal SQL queries(SELECT * FROM users WHERE id= ?)
+  callProcedureWithOnlyINParams: function () {
+    return `CALL getNumberOfUsersByWorkPlace(?);`;
+  },
+  callProcedureWithINAndOUTParams: function (workPlace) {
+    return `CALL getNumberOfUsersByWorkPlaceOUT("${workPlace}", @total);SELECT @total;`;
   }
+
 };
