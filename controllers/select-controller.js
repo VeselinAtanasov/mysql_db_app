@@ -1,11 +1,11 @@
-const ApiService = require('../services/apiService');
+const MySqlService = require('../services/mysqlService');
 const connection = require('../config/db/dbConfig');
 const sendResponse = require('../utils/serverResponse');
 const queryBuilder = require('../utils/query-builder/queryBuilder');
 const urls = require('../utils/constants/urls');
 
 module.exports = function (req, res) {
-  const mysqlApi = new ApiService(connection);
+  const mysqlApi = new MySqlService(connection);
   if ((req.path === urls.SELECT || req.path === urls.SELECT_ALL) && req.method === 'GET') {
     let query = queryBuilder.selectAll(); // 3) normal SQL query
     //  let query = queryBuilder.callProcedureWithINAndOUTParams('Sofia'); // 2) for storedProcedure with  IN and OUT params

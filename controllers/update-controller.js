@@ -1,4 +1,4 @@
-const ApiService = require('../services/apiService');
+const MySqlService = require('../services/mysqlService');
 const connection = require('../config/db/dbConfig');
 const formidable = require('formidable');
 const sendResponse = require('../utils/serverResponse');
@@ -9,7 +9,7 @@ const validator = require('../utils/validator');
 
 module.exports = function (req, res) {
   if (req.path.startsWith(urls.UPDATE)) {
-    const mysqlApi = new ApiService(connection);
+    const mysqlApi = new MySqlService(connection);
     let form = new formidable.IncomingForm();
     let userId = req.url.split('/').pop();
 
