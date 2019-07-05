@@ -23,6 +23,16 @@ module.exports = function (req, res) {
         return sendResponse(res, validation.errMessage);
       }
 
+      /*  // Execute One single query:
+      let multipleUpdate = queryBuilder.updateBothTables(userId, fields);
+
+      return mysqlApi
+        .execute(multipleUpdate)
+        .then(data => {
+          sendResponse(res, data);
+        })
+        .catch(e => sendResponse(res, e.message));
+      */
       let userDataQuery = queryBuilder.updateUserData(userId, fields);
       let jobsDataQuery = queryBuilder.updateJobsData(userId, fields);
 

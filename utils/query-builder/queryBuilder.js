@@ -17,6 +17,22 @@ module.exports = {
   deleteJob: function (userID) {
     return `DELETE FROM jobs WHERE employee_id = ${userID}`;
   },
+  updateBothTables: function (userID, data) {
+    return `UPDATE
+    names
+    INNER JOIN
+    jobs
+    ON
+    names.name_id = jobs.employee_id
+    SET
+    names.first_name = '${data.first_name}', 
+    names.last_name = '${data.last_name}', 
+    names.city = '${data.city}', 
+    jobs.work_position = '${data.work_position}',
+    jobs.work_place = '${data.work_place}'
+    WHERE
+    names.name_id = ${userID}`;
+  },
   updateUserData: function (userID, data) {
     return `UPDATE names SET first_name = '${data.first_name}', last_name = '${data.last_name}', city = '${data.city}' WHERE name_id =${userID}`;
   },
