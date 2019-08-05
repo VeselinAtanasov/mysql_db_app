@@ -9,7 +9,8 @@ class MySqlApi {
     if (arguments.length === 1) {
       return this.executeSingleQuery(firstQuery);
     }
-    if (arguments.length === 2) {
+    // For stored Procedures:
+    if (arguments.length === 2 && Array.isArray(secondQuery)) {
       return this.executeStoreProcedureWithParams(firstQuery, secondQuery);
     }
     return this.executeMultipleQueries(firstQuery, secondQuery, modifySecondQuery);

@@ -1,21 +1,22 @@
+const dbConfig = require('../../config/db/db-config');
 module.exports = {
   selectAll: function () {
-    return `SELECT * FROM names AS a RIGHT JOIN jobs AS b ON a.name_id = b.employee_id`;
+    return `SELECT * FROM ${dbConfig.table_names.name} AS a RIGHT JOIN ${dbConfig.table_jobs.name} AS b ON a.${dbConfig.table_names.fields.ID} = b.${dbConfig.table_jobs.fields.EMPLOYEE_ID}`;
   },
   insertPerson: function (params) {
-    return `INSERT INTO names (first_name, last_name, city) VALUES ('${params.first_name}', '${params.last_name}', '${params.city}')`;
+    return `INSERT INTO ${dbConfig.table_names.name} (${dbConfig.table_names.fields.FIRST_NAME}, ${dbConfig.table_names.fields.LAST_NAME}, ${dbConfig.table_names.fields.CITY}) VALUES ('${params.first_name}', '${params.last_name}', '${params.city}')`;
   },
   insertJob: function (params) {
-    return `INSERT INTO jobs (employee_id, work_position, work_place) VALUES ('${params.employeeId}', '${params.work_position}', '${params.work_place}')`;
+    return `INSERT INTO ${dbConfig.table_jobs.name} (${dbConfig.table_jobs.fields.EMPLOYEE_ID}, ${dbConfig.table_jobs.fields.WORK_POSITION}, ${dbConfig.table_jobs.fields.WORK_PLACE}) VALUES ('${params.employeeId}', '${params.work_position}', '${params.work_place}')`;
   },
   getUserById: function (userID) {
-    return `SELECT * FROM names AS a RIGHT JOIN jobs AS b ON a.name_id = b.employee_id WHERE a.name_id= ${userID}`;
+    return `SELECT * FROM ${dbConfig.table_names.name} AS a RIGHT JOIN ${dbConfig.table_jobs.name} AS b ON a.${dbConfig.table_names.fields.ID} = b.${dbConfig.table_jobs.fields.EMPLOYEE_ID} WHERE a.${dbConfig.table_names.fields.ID}= ${userID}`;
   },
   deletePerson: function (userID) {
-    return `DELETE FROM names WHERE name_id = ${userID}`;
+    return `DELETE FROM ${dbConfig.table_names.name} WHERE ${dbConfig.table_names.fields.ID} = ${userID}`;
   },
   deleteJob: function (userID) {
-    return `DELETE FROM jobs WHERE employee_id = ${userID}`;
+    return `DELETE FROM ${dbConfig.table_jobs.name} WHERE ${dbConfig.table_jobs.fields.EMPLOYEE_ID} = ${userID}`;
   },
   updateBothTables: function (userID, data) {
     return `UPDATE
@@ -50,7 +51,7 @@ module.exports = {
     return `CALL getNumberOfUsersByWorkPlace(?);`;
   },
   callProcedureWithINAndOUTParams: function (workPlace) {
-    return `CALL getNumberOfUsersByWorkPlaceOUT("${workPlace}", @total);SELECT @total;`;
+    return `CALL getNumberOfUsersByWorkPlaceOUT("@${workPlace}", @total);SELECT @total;`;
   }
 
 };
