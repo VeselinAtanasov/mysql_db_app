@@ -18,6 +18,18 @@ module.exports = {
   deleteJob: function (userID) {
     return `DELETE FROM ${dbConfig.table_jobs.name} WHERE ${dbConfig.table_jobs.fields.EMPLOYEE_ID} = ${userID}`;
   },
+
+  deleteDataQuery: function (userID) {
+    return `DELETE
+    names, jobs
+    FROM names
+    INNER JOIN
+    jobs
+    ON
+    names.name_id = jobs.employee_id
+    WHERE
+    names.name_id = ${userID}`;
+  },
   updateBothTables: function (userID, data) {
     return `UPDATE
     names

@@ -8,11 +8,10 @@ module.exports = function (req, res) {
   if (req.path.startsWith(urls.DELETE)) {
     const mysqlApi = new MySqlService(connection);
     let userId = req.url.split('/').pop();
-    let namesQuery = queryBuilder.deletePerson(userId);
-    let jobsQuery = queryBuilder.deleteJob(userId);
+    let namesQuery = queryBuilder.deleteDataQuery(userId);
 
     return mysqlApi
-      .execute(namesQuery, jobsQuery)
+      .execute(namesQuery)
       .then(data => {
         return sendResponse(res, data);
       })
