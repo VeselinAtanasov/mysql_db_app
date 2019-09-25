@@ -1,7 +1,8 @@
 const queryBuilder = require('../utils/query-builder/queryBuilder');
+const connection = require('../config/db/db');
 
 class MySqlApi {
-  constructor (connection) {
+  constructor () {
     this.connection = connection;
   }
 

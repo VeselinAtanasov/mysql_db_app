@@ -1,5 +1,4 @@
 const MySqlService = require('../services/mysqlService');
-const connection = require('../config/db/db');
 const formidable = require('formidable');
 const sendResponse = require('../utils/server-utils/serverResponse');
 const queryBuilder = require('../utils/query-builder/queryBuilder');
@@ -9,7 +8,7 @@ const validator = require('../utils/validator/validator');
 
 module.exports = function (req, res) {
   if (req.path === urls.INSERT && req.method === 'POST') {
-    const mysqlApi = new MySqlService(connection);
+    const mysqlApi = new MySqlService();
     let form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
       if (err) {
