@@ -1,11 +1,11 @@
 const MySqlService = require('../services/mysqlService');
 const connection = require('../config/db/db');
 const formidable = require('formidable');
-const sendResponse = require('../utils/serverResponse');
+const sendResponse = require('../utils/server-utils/serverResponse');
 const queryBuilder = require('../utils/query-builder/queryBuilder');
 const urls = require('../utils/constants/urls');
 const schema = require('../utils/validation-schemas/worker-validation-schema');
-const validator = require('../utils/validator');
+const validator = require('../utils/validator/validator');
 
 module.exports = function (req, res) {
   if (req.path === urls.INSERT && req.method === 'POST') {

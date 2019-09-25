@@ -1,6 +1,6 @@
 const MySqlService = require('../services/mysqlService');
 const connection = require('../config/db/db');
-const sendResponse = require('../utils/serverResponse');
+const sendResponse = require('../utils/server-utils/serverResponse');
 const queryBuilder = require('../utils/query-builder/queryBuilder');
 const urls = require('../utils/constants/urls');
 
