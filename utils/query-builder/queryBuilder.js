@@ -62,6 +62,9 @@ module.exports = {
   callProcedureWithOnlyINParams: function () {
     return `CALL getNumberOfUsersByWorkPlace(?);`;
   },
+  getUserByWorkPlaceAndCity: function () {
+    return `CALL getUserByWorkPlaceAndCity(?,?);`;
+  },
   callProcedureWithINAndOUTParams: function (workPlace) {
     return `CALL getNumberOfUsersByWorkPlaceOUT("${workPlace}", @total);SELECT @total;`;
   }
