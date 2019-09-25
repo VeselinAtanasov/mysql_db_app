@@ -63,7 +63,7 @@ module.exports = {
     return `CALL getNumberOfUsersByWorkPlace(?);`;
   },
   callProcedureWithINAndOUTParams: function (workPlace) {
-    return `CALL getNumberOfUsersByWorkPlaceOUT("@${workPlace}", @total);SELECT @total;`;
+    return `CALL getNumberOfUsersByWorkPlaceOUT("${workPlace}", @total);SELECT @total;`;
   }
 
 };
