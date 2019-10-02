@@ -3,7 +3,7 @@ const sendResponse = require('../utils/server-utils/serverResponse');
 const queryBuilder = require('../utils/query-builder/queryBuilder');
 const urls = require('../utils/constants/urls');
 
-module.exports = function (req, res) {
+module.exports = (req, res) => {
   if (req.path.startsWith(urls.DELETE)) {
     const mysqlApi = new MySqlService();
     let userId = req.url.split('/').pop();

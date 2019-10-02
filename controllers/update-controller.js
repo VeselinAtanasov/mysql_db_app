@@ -6,13 +6,13 @@ const urls = require('../utils/constants/urls');
 const schema = require('../utils/validation-schemas/worker-validation-schema');
 const validator = require('../utils/validator/validator');
 
-module.exports = function (req, res) {
+module.exports = (req, res) => {
   if (req.path.startsWith(urls.UPDATE)) {
     const mysqlApi = new MySqlService();
     let form = new formidable.IncomingForm();
     let userId = req.url.split('/').pop();
 
-    form.parse(req, function (err, fields, files) {
+    form.parse(req, (err, fields, files) => {
       if (err) {
         console.log(err);
         return sendResponse(res, err.message);

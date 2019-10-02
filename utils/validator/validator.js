@@ -1,6 +1,6 @@
 const validate = require('jsonschema').validate;
 
-module.exports = function (data, schema) {
+module.exports = (data, schema) => {
   let validated = validate(data, schema);
   if (validated.errors.length === 0) {
     return {

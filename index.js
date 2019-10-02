@@ -11,5 +11,4 @@ http.createServer(function (req, res) {
       break;
     }
   }
-}).listen(port);
-console.log(`Server is listening and on port: ${port}`);
+}).listen(port, () => console.log(`Server is listening and on port: ${port}`));

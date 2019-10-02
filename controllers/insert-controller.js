@@ -10,7 +10,7 @@ module.exports = function (req, res) {
   if (req.path === urls.INSERT && req.method === 'POST') {
     const mysqlApi = new MySqlService();
     let form = new formidable.IncomingForm();
-    form.parse(req, function (err, fields, files) {
+    form.parse(req, (err, fields, files) => {
       if (err) {
         console.log(err);
         return sendResponse(res, err.message);

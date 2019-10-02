@@ -1,4 +1,4 @@
-module.exports = function (res, data) {
+module.exports = (res, data) => {
   res.writeHead(200, {
     'content-type': 'text/plain'
   });

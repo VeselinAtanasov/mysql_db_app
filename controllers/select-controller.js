@@ -3,7 +3,7 @@ const sendResponse = require('../utils/server-utils/serverResponse');
 const queryBuilder = require('../utils/query-builder/queryBuilder');
 const urls = require('../utils/constants/urls');
 
-module.exports = function (req, res) {
+module.exports = (req, res) => {
   const mysqlApi = new MySqlService();
   if ((req.path === urls.SELECT || req.path === urls.SELECT_ALL) && req.method === 'GET') {
     let query = queryBuilder.selectAll(); // 3) normal SQL query

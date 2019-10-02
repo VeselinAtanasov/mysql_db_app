@@ -21,7 +21,7 @@ class MySqlApi {
     return new Promise((resolve, reject) => {
       return this.connection.query(
         query,
-        function (err, results) {
+        (err, results) => {
           if (err) {
             return reject(err);
           }
@@ -35,7 +35,7 @@ class MySqlApi {
     return new Promise((resolve, reject) => {
       return this.connection.query(
         query, options,
-        function (err, results, fields) {
+        (err, results, fields) => {
           if (err) {
             return reject(err);
           }
