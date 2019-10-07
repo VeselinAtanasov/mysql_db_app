@@ -7,6 +7,8 @@ module.exports = (app) => {
   app.get(urls.SELECT_ONE, controllers.selectOneController);
   app.delete(urls.DELETE, controllers.deleteController);
   app.put(urls.UPDATE, controllers.updateController);
+  app.put(urls.UPDATE_JOBS, controllers.updateJobsDataController);
+  app.put(urls.UPDATE_NAME, controllers.updateNameDataController);
   app.post(urls.INSERT, controllers.insertController);
 
   app.all('*', (req, res) => {

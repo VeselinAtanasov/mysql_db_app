@@ -4,5 +4,7 @@ module.exports = {
   SELECT_ONE: '/selectOne/:id',
   UPDATE: '/update/:id',
   INSERT: '/insert',
-  DELETE: '/delete/:id'
+  DELETE: '/delete/:id',
+  UPDATE_JOBS: '/jobUpdate/:id',
+  UPDATE_NAME: '/nameUpdate/:id'
 };
