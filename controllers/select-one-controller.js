@@ -4,11 +4,12 @@ const queryBuilder = require('../utils/query-builder/queryBuilder');
 
 module.exports = (req, res) => {
   const mysqlApi = new MySqlService();
+
   let userId = req.params.id;
-  let namesQuery = queryBuilder.deleteDataQuery(userId);
+  let query = queryBuilder.getUserById(userId);
 
   return mysqlApi
-    .execute(namesQuery)
+    .execute(query)
     .then(data => {
       return sendResponse(res, data);
     })
