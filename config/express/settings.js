@@ -11,5 +11,6 @@ module.exports = {
   },
   production: {
     port: process.env.PORT
-  }
+  },
+  secret: 'Sometion@Secret!'
 };

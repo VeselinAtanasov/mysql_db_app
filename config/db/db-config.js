@@ -17,5 +17,14 @@ module.exports = {
       EMPLOYEE_ID: 'employee_id',
       WORK_PLACE: 'work_place'
     }
+  },
+  table_user: {
+    name: 'users',
+    fields: {
+      USERNAME: 'username',
+      PASSWORD: 'password',
+      SALT: 'salt',
+      TOKEN: 'token'
+    }
   }
 };

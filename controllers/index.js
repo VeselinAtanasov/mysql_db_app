@@ -5,6 +5,7 @@ const updateNameDataController = require('./update-name-controller');
 const deleteController = require('./delete-controller');
 const insertController = require('./insert-controller');
 const selectOneController = require('./select-one-controller');
+const userController = require('./authentication-controller');
 
 module.exports = {
   selectController,
@@ -13,5 +14,6 @@ module.exports = {
   insertController,
   selectOneController,
   updateJobsDataController,
-  updateNameDataController
+  updateNameDataController,
+  userController
 };
