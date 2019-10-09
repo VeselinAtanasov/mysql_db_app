@@ -1,4 +1,5 @@
 module.exports = {
+  LOGIN: '/login',
   SELECT: '/',
   SELECT_ALL: '/select',
   SELECT_ONE: '/selectOne/:id',
