@@ -3,7 +3,7 @@ const urls = require('../../utils/constants/urls');
 const authMiddleware = require('../express/middleware/auth-middleware');
 
 module.exports = (app) => {
-  app.get(urls.LOGIN, controllers.userController.login);
+  app.post(urls.LOGIN, controllers.userController.login);
   app.get(urls.SELECT, authMiddleware, controllers.selectController);
   app.get(urls.SELECT_ALL, authMiddleware, controllers.selectController);
   app.get(urls.SELECT_ONE, authMiddleware, controllers.selectOneController);

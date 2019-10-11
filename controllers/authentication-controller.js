@@ -4,11 +4,18 @@ const sendResponse = require('../utils/server-utils/serverResponse');
 const encryption = require('../config/express/auth/encryption.js');
 const MySqlService = require('../services/mysqlService');
 const queryBuilder = require('../utils/query-builder/queryBuilder');
+const schema = require('../utils/validation-schemas/user-validation-schema');
+const validator = require('../utils/validator/validator');
 
 module.exports = {
   login: (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
+
+    let validation = validator(req.body, schema);
+    if (!validation.status) {
+      return sendResponse(res, validation.errMessage);
+    }
 
     let mysqlApi = new MySqlService();
     let query = queryBuilder.getUser(username);
@@ -22,6 +29,7 @@ module.exports = {
             message: 'User is not registered!'
           });
         }
+
         let dbUser = data[0].username;
         let dbPassword = data[0].password;
         let dbSalt = data[0].salt;
