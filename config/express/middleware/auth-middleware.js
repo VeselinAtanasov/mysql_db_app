@@ -5,7 +5,6 @@ const MySqlService = require('../../../services/mysqlService');
 const queryBuilder = require('../../../utils/query-builder/queryBuilder');
 
 module.exports = (req, res, next) => {
-  console.log('12');
   let token = req.headers['x-access-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
 
   if (token) {

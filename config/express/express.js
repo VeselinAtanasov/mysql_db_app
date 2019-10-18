@@ -13,7 +13,6 @@ module.exports = (app) => {
   // });
 
   app.use((req, res, next) => {
-    console.log('Middleware Executed:');
     if (req.user) {
       res.locals.currentUser = req.user;
     }
