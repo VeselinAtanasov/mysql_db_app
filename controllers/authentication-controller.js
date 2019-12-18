@@ -18,22 +18,22 @@ module.exports = {
     }
 
     let mysqlApi = new MySqlService();
-    let query = queryBuilder.getUser(username);
+    let userQuery = queryBuilder.getUser(username);
 
-    return mysqlApi
-      .execute(query)
-      .then(data => {
-        if (data.length === 0) {
+    return mysqlApi.execute(userQuery)
+      .then(values => {
+        if (!values[0]) {
           return sendResponse(res, {
-            success: true,
-            message: 'User is not registered!'
+            success: false,
+            message: 'This username does not exist! Please register first!'
           });
         }
+        let userData = values[0];
 
-        let dbUser = data[0].username;
-        let dbPassword = data[0].password;
-        let dbSalt = data[0].salt;
-        let hashedPass = encryption.generateHashedPassword(dbSalt, password);
+        let salt = userData.salt;
+        let dbUser = userData.username;
+        let dbPassword = userData.password;
+        let hashedPass = encryption.generateHashedPassword(salt, password);
 
         if (username === dbUser && hashedPass === dbPassword) {
           let token = jwt.sign({ username: username, password: hashedPass }, secret, { expiresIn: '1h' });
@@ -50,11 +50,49 @@ module.exports = {
             })
             .catch(e => sendResponse(res, e.message));
         }
-
         return sendResponse(res, {
           success: false,
-          message: 'Incorrect username or password'
+          message: 'Wrong Password'
         });
+      })
+      .catch(e => sendResponse(res, e.message));
+  },
+
+  register: (req, res) => {
+    let username = req.body.username;
+    let password = req.body.password;
+
+    let validation = validator(req.body, schema);
+    if (!validation.status) {
+      return sendResponse(res, validation.errMessage);
+    }
+
+    let mysqlApi = new MySqlService();
+    let userQuery = queryBuilder.getUser(username);
+
+    return mysqlApi.execute(userQuery)
+      .then(values => {
+        if (values.length !== 0) {
+          return sendResponse(res, {
+            success: true,
+            message: 'User with this username exists!'
+          });
+        }
+        let salt = encryption.generateSalt();
+        let hashedPass = encryption.generateHashedPassword(salt, password);
+        let token = jwt.sign({ username: username, password: hashedPass }, secret, { expiresIn: '1h' });
+        let storeUserAndToken = queryBuilder.addUser(username, hashedPass, token, salt);
+
+        return mysqlApi
+          .execute(storeUserAndToken)
+          .then(() => {
+            return sendResponse(res, {
+              success: true,
+              message: 'Registration successfully!',
+              token: token
+            });
+          })
+          .catch(e => sendResponse(res, e.message));
       })
       .catch(e => sendResponse(res, e.message));
   }

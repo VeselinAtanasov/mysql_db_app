@@ -16,6 +16,9 @@ module.exports = {
   updateToken: (username, token) => {
     return `UPDATE ${dbConfig.table_user.name} SET ${dbConfig.table_user.fields.TOKEN} = "${token}" WHERE ${dbConfig.table_user.fields.USERNAME} = "${username}"`;
   },
+  addUser: (username, hashedPass, token, salt) => {
+    return `INSERT INTO ${dbConfig.table_user.name} (username, password,token, salt) VALUES ('${username}', '${hashedPass}', '${token}','${salt}')`;
+  },
   insertJob: (params) => {
     return `INSERT INTO ${dbConfig.table_jobs.name} (${dbConfig.table_jobs.fields.EMPLOYEE_ID}, ${dbConfig.table_jobs.fields.WORK_POSITION}, ${dbConfig.table_jobs.fields.WORK_PLACE}) VALUES ('${params.employeeId}', '${params.work_position}', '${params.work_place}')`;
   },

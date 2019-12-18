@@ -4,6 +4,7 @@ const authMiddleware = require('../express/middleware/auth-middleware');
 
 module.exports = (app) => {
   app.post(urls.LOGIN, controllers.userController.login);
+  app.post(urls.REGISTER, controllers.userController.register);
   app.get(urls.SELECT, authMiddleware, controllers.selectController);
   app.get(urls.SELECT_ALL, authMiddleware, controllers.selectController);
   app.get(urls.SELECT_ONE, authMiddleware, controllers.selectOneController);
