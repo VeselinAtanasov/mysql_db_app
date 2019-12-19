@@ -3,6 +3,7 @@ const secret = require('../settings').secret;
 const sendResponse = require('../../../utils/server-utils/serverResponse');
 const MySqlService = require('../../../services/mysqlService');
 const queryBuilder = require('../../../utils/query-builder/queryBuilder');
+const messages = require('../../../utils/constants/messages');
 
 module.exports = (req, res, next) => {
   let token = req.headers['x-access-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
@@ -13,11 +14,11 @@ module.exports = (req, res, next) => {
       token = token.split(' ')[1]; // token.slice(7, token.length);
     }
 
-    jwt.verify(token, secret, (err, decoded) => {
+    return jwt.verify(token, secret, (err, decoded) => {
       if (err) {
         return sendResponse(res, {
           success: false,
-          message: 'Token is not valid'
+          message: messages.INVALID_TOKEN
         });
       }
       let mysqlApi = new MySqlService();
@@ -33,17 +34,17 @@ module.exports = (req, res, next) => {
           }
           return sendResponse(res, {
             success: false,
-            message: 'Token is not valid'
+            message: messages.INVALID_TOKEN
           });
         }).catch(e => sendResponse(res, {
           success: false,
-          message: 'Token is not valid'
+          message: messages.INVALID_TOKEN
         }));
     });
-  } else {
-    return sendResponse(res, {
-      success: false,
-      message: 'Auth token is not supplied'
-    });
   }
+
+  return sendResponse(res, {
+    success: false,
+    message: messages.TOKEN_NOT_PROVIDED
+  });
 };

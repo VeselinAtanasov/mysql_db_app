@@ -6,6 +6,7 @@ const MySqlService = require('../services/mysqlService');
 const queryBuilder = require('../utils/query-builder/queryBuilder');
 const schema = require('../utils/validation-schemas/user-validation-schema');
 const validator = require('../utils/validator/validator');
+const messages = require('../utils/constants/messages');
 
 module.exports = {
   login: (req, res) => {
@@ -25,7 +26,7 @@ module.exports = {
         if (!values[0]) {
           return sendResponse(res, {
             success: false,
-            message: 'This username does not exist! Please register first!'
+            message: messages.PLEASE_REGISTER
           });
         }
         let userData = values[0];
@@ -44,7 +45,7 @@ module.exports = {
             .then(() => {
               return sendResponse(res, {
                 success: true,
-                message: 'Authentication successful!',
+                message: messages.SUCCESSFUL_AUTH,
                 token: token
               });
             })
@@ -52,7 +53,7 @@ module.exports = {
         }
         return sendResponse(res, {
           success: false,
-          message: 'Wrong Password'
+          message: messages.WRONG_PASSWORD
         });
       })
       .catch(e => sendResponse(res, e.message));
@@ -75,7 +76,7 @@ module.exports = {
         if (values.length !== 0) {
           return sendResponse(res, {
             success: true,
-            message: 'User with this username exists!'
+            message: messages.USER_EXIST
           });
         }
         let salt = encryption.generateSalt();
@@ -88,7 +89,7 @@ module.exports = {
           .then(() => {
             return sendResponse(res, {
               success: true,
-              message: 'Registration successfully!',
+              message: messages.SUCCESSFUL_REGISTRATION,
               token: token
             });
           })
