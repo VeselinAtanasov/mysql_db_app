@@ -17,11 +17,6 @@ module.exports = function (req, res) {
 
   return mysqlApi
     .execute(userDataQuery, jobsDataQuery, true)
-    .then(data => {
-      return sendResponse(res, data);
-    })
-    .catch(e => {
-      console.log('===ERR: ' + JSON.stringify(e.message));
-      return sendResponse(res, e.message);
-    });
+    .then(data => sendResponse(res, data))
+    .catch(e => sendResponse(res, e.message));
 };

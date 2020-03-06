@@ -16,11 +16,6 @@ module.exports = (req, res) => {
   let query = queryBuilder.updateJobsData(userId, req.body);
   return mysqlApi
     .execute(query)
-    .then(data => {
-      return sendResponse(res, data);
-    })
-    .catch(e => {
-      console.log('===ERR: ' + JSON.stringify(e.message));
-      return sendResponse(res, e.message);
-    });
+    .then(data => sendResponse(res, data))
+    .catch(e => sendResponse(res, e.message));
 };

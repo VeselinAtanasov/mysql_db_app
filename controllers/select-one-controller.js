@@ -10,8 +10,6 @@ module.exports = (req, res) => {
 
   return mysqlApi
     .execute(query)
-    .then(data => {
-      return sendResponse(res, data);
-    })
+    .then(data => sendResponse(res, data))
     .catch(e => sendResponse(res, e.message));
 };

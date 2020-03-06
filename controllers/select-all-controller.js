@@ -11,8 +11,6 @@ module.exports = (req, res) => {
   return mysqlApi
     // .execute(query, ['Sofia']) // 1) for storedProcedure with only IN params and using placeholders, passed as array.
     .execute(query) // 3) and 2)
-    .then(data => {
-      sendResponse(res, data);
-    })
+    .then(data => sendResponse(res, data))
     .catch(e => sendResponse(res, e.message));
 };

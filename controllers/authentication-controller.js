@@ -20,8 +20,10 @@ module.exports = {
 
     let mysqlApi = new MySqlService();
     let userQuery = queryBuilder.getUser(username);
+    let token = '';
 
-    return mysqlApi.execute(userQuery)
+    return mysqlApi
+      .execute(userQuery)
       .then(values => {
         if (!values[0]) {
           return sendResponse(res, {
@@ -37,23 +39,21 @@ module.exports = {
         let hashedPass = encryption.generateHashedPassword(salt, password);
 
         if (username === dbUser && hashedPass === dbPassword) {
-          let token = jwt.sign({ username: username, password: hashedPass }, secret, { expiresIn: '1h' });
+          token = jwt.sign({ username: username, password: hashedPass }, secret, { expiresIn: '1h' });
           let storeTokenQuery = queryBuilder.updateToken(username, token);
 
-          return mysqlApi
-            .execute(storeTokenQuery)
-            .then(() => {
-              return sendResponse(res, {
-                success: true,
-                message: messages.SUCCESSFUL_AUTH,
-                token: token
-              });
-            })
-            .catch(e => sendResponse(res, e.message));
+          return mysqlApi.execute(storeTokenQuery);
         }
         return sendResponse(res, {
           success: false,
           message: messages.WRONG_PASSWORD
+        });
+      })
+      .then(() => {
+        return sendResponse(res, {
+          success: true,
+          message: messages.SUCCESSFUL_AUTH,
+          token: token
         });
       })
       .catch(e => sendResponse(res, e.message));
@@ -62,7 +62,7 @@ module.exports = {
   register: (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
-
+    let token = '';
     let validation = validator(req.body, schema);
     if (!validation.status) {
       return sendResponse(res, validation.errMessage);
@@ -71,7 +71,8 @@ module.exports = {
     let mysqlApi = new MySqlService();
     let userQuery = queryBuilder.getUser(username);
 
-    return mysqlApi.execute(userQuery)
+    return mysqlApi
+      .execute(userQuery)
       .then(values => {
         if (values.length !== 0) {
           return sendResponse(res, {
@@ -84,16 +85,14 @@ module.exports = {
         let token = jwt.sign({ username: username, password: hashedPass }, secret, { expiresIn: '1h' });
         let storeUserAndToken = queryBuilder.addUser(username, hashedPass, token, salt);
 
-        return mysqlApi
-          .execute(storeUserAndToken)
-          .then(() => {
-            return sendResponse(res, {
-              success: true,
-              message: messages.SUCCESSFUL_REGISTRATION,
-              token: token
-            });
-          })
-          .catch(e => sendResponse(res, e.message));
+        return mysqlApi.execute(storeUserAndToken);
+      })
+      .then(() => {
+        return sendResponse(res, {
+          success: true,
+          message: messages.SUCCESSFUL_REGISTRATION,
+          token: token
+        });
       })
       .catch(e => sendResponse(res, e.message));
   }
